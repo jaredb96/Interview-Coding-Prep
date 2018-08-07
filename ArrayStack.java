@@ -42,7 +42,7 @@ public final class ArrayStack<T> implements StackInterface<T>
      */
     private void checkCapacity(int capacity){
         if (capacity > 10000 || capacity < 0){
-            throw new ArrayOutOfBoundsException();
+            
         }
     }
 
@@ -55,7 +55,7 @@ public final class ArrayStack<T> implements StackInterface<T>
         if (initialized){
             return true;
         }
-        els0 e{
+        else{
 
             return false;
         }
@@ -89,10 +89,10 @@ public final class ArrayStack<T> implements StackInterface<T>
      * @throws EmptyStackException is the stack is empty before calling the function.
      */
     public T pop() {
-        checkInitialization()
+        checkInitialization();
 
         if (isEmpty()){
-            throws new EmptyStackException();
+            return null;
         }
         else {
             T top = stack[topIndex];
