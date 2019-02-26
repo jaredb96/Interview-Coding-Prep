@@ -1,0 +1,81 @@
+class ListNode:
+    def __init__(self, x):
+        self.val = x
+        self.next = None
+
+def mergeLinkedLists(l1, l2):
+    if l1 == None:
+        return l2
+    elif l2 == None:
+        return l1
+    
+    if l1.val <= l2.val:
+        basePtr = l1
+        otherPtr = l2
+        head = l1
+    else:
+        basePtr = l2
+        otherPtr = l1
+        head = l2
+    
+    while basePtr != None and otherPtr != None:
+        while basePtr.next != None and basePtr.next.val <= otherPtr.val:
+            basePtr = basePtr.next
+        temp = basePtr.next   
+        otherTemp = otherPtr.next
+        
+        basePtr.next = otherPtr
+        otherPtr.next = temp
+        otherPtr = otherTemp
+        basePtr = basePtr.next
+    
+    return head
+
+def printList(head):
+    while head is not None:
+        print(str(head.val) + " ")
+        head = head.next
+
+node1 = ListNode(1)
+node2 = ListNode(2)
+node3 = ListNode(3)
+node4 = ListNode(4)
+node5 = ListNode(5)
+node6 = ListNode(6)
+node7 = ListNode(7)
+node8 = ListNode(8)
+node9 = ListNode(9)
+
+node1_2 = ListNode(1)
+node2_2 = ListNode(2)
+node3_2 = ListNode(3)
+node4_2 = ListNode(4)
+node5_2 = ListNode(5)
+node6_2 = ListNode(6)
+node7_2 = ListNode(7)
+node8_2 = ListNode(8)
+node9_2 = ListNode(9)
+
+node1.next = node3
+node3.next = node4
+node4.next = node5
+node5.next = node6
+
+node2_2.next = node4_2
+node4_2.next = node6_2
+node6_2.next = node8_2
+
+printList(mergeLinkedLists(None, None))
+
+"""
+1->3
+"""
+
+     """
+    # l1 :  1 -> 3 -> 4 -> 5 -> 6 -> 7 -> 7 -> 8 -> 9 -> None
+                                          ^
+                                          basePtr
+    # l2 :None
+           ^
+        otherPtr
+    """
