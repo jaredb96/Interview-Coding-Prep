@@ -1,0 +1,122 @@
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode(int x) { val = x; }
+ * }
+ */
+
+/*
+           3
+          / \
+          2  3
+           \   \ 
+            3   1
+            
+            
+     3
+    / \
+   2   5
+  / \   \ 
+ 1   3   1
+ 
+
+
+[3,2,3,null,3,null,1]
+
+}
+
+
+*/
+
+class Solution {
+  
+   // Definition for a binary tree node.
+   public static class TreeNode {
+       int val;
+       TreeNode left;
+       TreeNode right;
+       TreeNode(int x) { val = x; }
+   }
+  
+  
+    /* returns the max of 4 input ints */
+    public static int MaxOfFour(int sum1, int sum2, int sum3, int sum4){
+      int ret = sum1;
+      ret = Math.max(ret, sum2);
+      ret = Math.max(ret, sum3);
+      ret = Math.max(ret, sum4);
+      return ret;
+    }
+  
+  
+    public static int robHelper(TreeNode root, boolean rob){ 
+      /* base case */
+      if(root == null) return 0;
+      
+      /* robbing root */
+      int sum = 0;
+      if(rob){
+        /* robbing root, and not children */
+        sum = root.val + robHelper(root.left, false) + robHelper(root.right, false);
+      }
+      /* not robbing root */
+      else{
+        int sum1 = robHelper(root.left, false) + robHelper(root.right, false); // rob neither child
+        int sum2 = robHelper(root.left, true)  + robHelper(root.right, false); // rob left, not right
+        int sum3 = robHelper(root.left, false) + robHelper(root.right, true); // rob right, not left
+        int sum4 = robHelper(root.left, true)  + robHelper(root.right, true); // rob both
+        
+        sum = MaxOfFour(sum1, sum2, sum3, sum4);
+      }
+      
+      return sum;
+    }
+  
+  
+    public static int rob(TreeNode root) {
+        return Math.max(robHelper(root, true), robHelper(root, false));
+    }
+  
+    public static void main(String[] args){
+      TreeNode node0 = new TreeNode(3);
+      TreeNode node1 = new TreeNode(2);
+      TreeNode node2 = new TreeNode(3);
+      TreeNode node3 = null;
+      TreeNode node4 = new TreeNode(3);
+      TreeNode node5 = null;
+      TreeNode node6 = new TreeNode(1);
+      
+      node0.left = node1;
+      node0.right = node2;
+      
+      node1.left = node3;
+      node1.right = node4;
+      
+      node2.left = node5;
+      node2.right = node6;
+      
+      TreeNode tiddies = new TreeNode(69);
+      System.out.println("optimal soln: " + rob(tiddies));
+      
+    }
+}
+
+/*
+
+[3,2,5,1,3,null,1]
+     3
+    / \
+   2   5
+  / \   \ 
+ 1   3   1
+ 
+ 
+            3
+          / \
+          2  3
+           \   \ 
+            3   1
+ */
