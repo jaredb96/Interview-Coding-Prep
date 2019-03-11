@@ -1,0 +1,55 @@
+def reverseBits(n):
+    
+    mask = pow(2, 32)
+    # Integer that places ith digit in desired position
+    # in the result
+    shiftBy = 0
+    result = 0
+    
+    for i in range(32):
+        desiredPos = 31 - i
+        if i < desiredPos: # left shift for lower order bits
+            shiftBy = n << (desiredPos - i)
+        else: # right shift for higher order bits
+            shiftBy = n >> (i - desiredPos)
+        # Adjust mask and update result  
+        mask = mask >> 1
+        result = result | (mask & shiftBy)
+        
+    return result
+
+
+# Faster reverse bits function
+def reverseBits2(n):
+    result = 0
+    # Mask to capture least significant bit
+    mask = 1
+    
+    for i in range(32):
+        result = result << 1
+        bit = mask & n 
+        result = result | bit 
+        n = n >> 1
+        
+    return result 
+
+
+num = 11
+print('{:032b}'.format(num))
+num = reverseBits2(num)
+print('{:032b}'.format(num))
+
+num = 1
+print('{:032b}'.format(num))
+num = reverseBits2(num)
+print('{:032b}'.format(num))
+
+num = 0
+print('{:032b}'.format(num))
+num = reverseBits2(num)
+print('{:032b}'.format(num))
+
+num = 19
+print('{:032b}'.format(num))
+num = reverseBits2(num)
+print('{:032b}'.format(num))
