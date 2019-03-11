@@ -98,8 +98,8 @@ class Solution {
       node2.left = node5;
       node2.right = node6;
       
-      TreeNode tiddies = new TreeNode(69);
-      System.out.println("optimal soln: " + rob(tiddies));
+      TreeNode t = new TreeNode(69);
+      System.out.println("optimal soln: " + rob(t));
       
     }
 }
