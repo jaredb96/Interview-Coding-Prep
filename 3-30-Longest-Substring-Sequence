@@ -1,0 +1,65 @@
+import java.io.*;
+import java.util.*;
+
+/*
+ * To execute Java, please define "static void main" on a class
+ * named Solution.
+ *
+ * If you need more classes, simply define them inline.
+ */
+
+
+class Solution {
+  /*
+ idx   0 1 2 3 4 5 6 7 8 9 10
+      "a b c d e f a b f g h"
+       ^           ^      
+   
+      "c b a d e f g a z x c y"
+         ^                 ^
+  */
+  public static int maxSubstring(String str){
+    if(str.length() <= 1) return str.length();
+   
+    /* init ptrs and ret value */
+    int maxLen = 1;
+    int l = 0;
+    int r = 0;
+   
+    /* init hashtable */
+    Hashtable<Character, Integer> table = new Hashtable<Character,Integer>();
+    table.put(str.charAt(0), 0);
+   
+    while(r < str.length()-1) {
+      r++; // increase window size
+      
+      /* repeating char, adjust left */
+      if(table.containsKey(str.charAt(r)) && table.get(str.charAt(r)) >= l){
+       l = table.get(str.charAt(r)) + 1; 
+      }
+      
+      /* insert char idx into table */
+      table.put(str.charAt(r), r);
+      
+      /* update maxLen if possible */
+      int currLen = (r-l) + 1;
+      if(currLen > maxLen){
+       maxLen = currLen; 
+      }
+      
+    } 
+    return maxLen;
+  }
+  
+  
+  public static void main(String[] args){
+    String str = "";
+    //System.out.println(maxSubstring(str));
+    
+    str = "abcdefabfgh";
+    System.out.println(maxSubstring(str));
+
+  }
+   
+   
+}
