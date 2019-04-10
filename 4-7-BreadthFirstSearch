@@ -1,0 +1,63 @@
+"""
+  Below is a Python implementation of a breadth-first search done on a Binary Search Tree
+  The function is given the root of a Binary Search Tree, and returns a list ordered
+  in a breadth-first manner
+"""
+
+import queue
+
+class TreeNode:
+    def __init__(self, x):
+        self.val = x
+        self.left = None
+        self.right = None
+
+        
+def BFS(root):
+    if root is None:
+        return []
+    
+    q = queue.Queue()
+    output = []
+    
+    q.put(root)
+    while q.empty() == False:
+        temp = q.get()
+        if temp.left != None:
+            q.put(temp.left)
+        if temp.right != None:
+            q.put(temp.right) 
+        
+        output.append(temp.val)
+    
+    return output
+    
+    
+    
+# Test Case
+# a = TreeNode(55)
+# b = TreeNode(17)
+# c = TreeNode(4)
+# d = TreeNode(-8)
+# e = TreeNode(69)
+
+# a.left = b 
+# a.right = c
+
+# c.right = d 
+# d.right = e
+
+# print(BFS(a))  
+
+"""
+
+
+         55
+       /   \
+      17     4
+             \
+              -8
+                \
+                 69
+
+"""
