@@ -1,0 +1,125 @@
+import java.io.*;
+import java.util.*;
+
+/**
+preorder = [3,9,20,15,7]
+inorder = [9,3,15,20,7]
+
+  3
+ / \
+9  20
+   / \
+  15  7
+
+
+        3
+      /
+     /
+    /
+   /
+  9
+
+
+preorder = [1, 2, 4, 5, 3, 6]
+inorder = [4, 2, 5, 1, 6, 3]
+
+    1
+   / \
+  2   3
+ / \ /
+4  5 6
+**/
+
+
+class Solution {
+  
+  
+  public static class TreeNode{
+
+    private TreeNode left;
+    private TreeNode right;
+    private int val;
+
+    public TreeNode(int val){
+      this.left = null;
+      this.right = null;
+      this.val = val;
+    }
+  }
+  
+  public static TreeNode recurse(HashMap<Integer,Integer> table, List<Integer> pre, List<Integer> inorder, int start, int end) {
+
+    /* base case */
+    if(start > end){
+     return null; 
+    }
+
+    /* get root of tree */
+    int val = pre.remove(0); // pop head
+    TreeNode root = new TreeNode(val);
+
+    /* call on left and right regions */
+    int rootIdx = table.get(root.val);
+    root.left =  recurse(table, pre, inorder, start, rootIdx-1);
+    root.right = recurse(table, pre, inorder, rootIdx+1, end);
+
+    return root;
+  }
+
+  public static TreeNode buildTree(int[] pre, int[] inorder){
+
+    /* convert to lists */
+    List<Integer> preList = new ArrayList<Integer>();
+    List<Integer> inList = new ArrayList<Integer>();
+    for(int i=0; i<pre.length; i++) preList.add(pre[i]);
+    for(int j=0; j<inorder.length; j++) inList.add(inorder[j]);
+
+    /* map everything inorder to its idx */
+    HashMap<Integer, Integer> table = new HashMap<Integer, Integer>();
+    for(int i=0; i<inorder.length; i++){
+      table.put(inorder[i], i);
+    }
+    
+    /* return result */
+    return recurse(table, preList, inList, 0, inList.size()-1);
+  }
+  
+  /* 
+     print function (for testing)
+     prints in-order traversal
+  */
+  public static void inOrderPrint(TreeNode root){
+    if(root == null) return;
+
+    inOrderPrint(root.left);
+    System.out.print(root.val + ",");
+    inOrderPrint(root.right);
+  }
+
+  /* 
+     print function (for testing)
+     prints pre-order traversal
+  */
+  public static void preOrderPrint(TreeNode root){
+    if(root == null) return;
+
+    System.out.print(root.val + ",");
+    preOrderPrint(root.left);
+    preOrderPrint(root.right);
+  }
+  
+  public static void main(String[] args) {
+    /* test case */     
+    int[] preorder = {1, 2, 4, 5, 3, 6};
+    int[] inorder = {4, 2, 5, 1, 6, 3};
+      
+    TreeNode a = buildTree(preorder, inorder);  
+    preOrderPrint(a);
+    System.out.println();
+    inOrderPrint(a);
+  }
+}
+
+
+
+
