@@ -1,0 +1,107 @@
+'''                    1
+                     /   \
+                    /     \
+                   /       \
+                  /         \
+                 2           2
+                / \        /  \
+               3   4      4    3
+              / \ /  \   / \  / \
+             5  6 7   8  8  76   5
+                
+                
+                
+                 1
+               /   \
+              2     2
+               \     \
+                3     3
+                
+                
+                
+                
+                
+                
+root1 = root.left
+root2 = root.right
+isSymmetric(root1, root2) = isSymmetric(root1.left, root2.right) and isSymmetric(root1.right, root2.left)
+'''
+
+class TreeNode:
+    def __init__(self, x):
+        self.val = x
+        self.left = None
+        self.right = None 
+
+ 
+def recursiveIsSymmetric(left, right):
+    if left == None and right == None:
+        return True
+    else:
+        if left == None or right == None:
+            return False
+        else:
+            isEqual = left.val == right.val
+            return isEqual and recursiveIsSymmetric(left.left, right.right) and recursiveIsSymmetric(left.right, right.left)
+
+def isSymmetric(root):
+    if root is None or (root.left == None and root.right == None):
+        return True
+    
+    root1 = root.left
+    root2 = root.right
+    return recursiveIsSymmetric(root1, root2)
+
+
+a = TreeNode(1)
+
+b = TreeNode(2)
+c = TreeNode(2)
+d = TreeNode(3)
+e = TreeNode(4)
+f = TreeNode(3)
+g = TreeNode(4)
+h = TreeNode(5)
+i = TreeNode(6)
+j = TreeNode(7)
+k = TreeNode(8)
+l = TreeNode(5)
+m = TreeNode(6)
+n = TreeNode(7)
+o = TreeNode(8)
+
+a.left = b
+a.right = c
+b.left = d
+b.right = e
+c.left = g
+c.right = f
+d.left = h 
+d.right = i
+e.left = j
+e.right = k
+f.left = m
+f.right = l
+g.left = o
+g.right = n
+
+x = TreeNode(1)
+y = TreeNode(2)
+z = TreeNode(2)
+a = TreeNode(3)
+b = TreeNode(3)
+
+x.left = y
+x.right = z
+y.left = a
+z.right = b
+print(isSymmetric(x))
+
+
+        
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, x):
+#         self.val = x
+#         self.left = None
+#         self.right = None
