@@ -1,0 +1,50 @@
+import java.io.*;
+import java.util.*;
+
+/*
+ * To execute Java, please define "static void main" on a class
+ * named Solution.
+ *
+ * If you need more classes, simply define them inline.
+ */
+
+class Solution {
+  public static void main(String[] args) {
+    int[] nums = {2, 0, 0, 0, 0};
+    System.out.println(canJump(nums));
+  }
+  
+  /**
+  idx     0  1  2  3  4
+  nums = [2, 3, 1, 1, 4]
+  
+  
+         [1, 2, 3, 4, 0, 0, 0, 0, 0, 1, 2, 0, 0, 0, 0, 9, 1]
+  
+  
+  
+  idx     0  1  2  3  4
+  nums = [3, 2, 1, 1, 4]
+  
+  */
+  
+  public static boolean canJump(int[] num){
+    /* edge cases */
+    if(num.length <=1) return true;
+    
+    /* earliest idx that can take us to end */
+    int earliestIdx = num.length-1;
+    
+    for(int i=num.length-2; i >= 0; i--){
+      /* if this idx can get us to earliestIdx, update earliestIdx */
+      if(i + num[i] >= earliestIdx){
+        earliestIdx = i; 
+      }
+    }
+    
+    return earliestIdx == 0;
+  }
+  
+  
+  
+}
