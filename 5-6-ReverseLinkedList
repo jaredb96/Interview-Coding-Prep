@@ -1,0 +1,49 @@
+class ListNode:
+    def __init__(self, x):
+        self.val = x
+        self.next = None
+        
+"""
+        1 -> 2 -> 3 -> 4 -> 5 -> 6 -> None
+            
+       prev curr
+            temp
+None <- 1    2 -> 3 -> 4 -> 5 -> 6 -> None
+
+"""
+def reverseLinkedList(head):
+    result_head = ListNode(None)
+    
+    current_node = head 
+    previous_node = None
+
+    while current_node != None:
+        temp_node = current_node.next
+        current_node.next = previous_node
+        previous_node = current_node
+        current_node = temp_node
+        
+    return previous_node
+
+
+def printLinkedList(head):
+    while head != None:
+        print(str(head.val) + " ") 
+        head = head.next
+        
+        
+x = ListNode(0)
+y = None
+    
+a = ListNode(1)
+b = ListNode(2)
+c = ListNode(3)
+d = ListNode(4)
+e = ListNode(5)
+
+a.next = b
+b.next = c
+c.next = d
+d.next = e
+
+printLinkedList(reverseLinkedList(c))
