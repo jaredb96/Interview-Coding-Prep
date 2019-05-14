@@ -1,0 +1,67 @@
+import java.io.*;
+import java.util.*;
+
+/*
+ * To execute Java, please define "static void main" on a class
+ * named Solution.
+ *
+ * If you need more classes, simply define them inline.
+ */
+
+class Solution {
+  
+  /** A = [3, 2, 13, 4, 7, 2, 1, 9, 6] = 45 i = 2, j = 7 
+      [2, 500, 1, 501] = 1000 i = 1, j = 3
+      [1,8,6,2,5,4,8,3,7] = 49 i = 1, j = 8
+      
+      
+      
+      
+      area(i, j) = (j-i) * min(nums[i], nums[j])
+       v                       v
+      [7, 8, 6, 3, 2, 7, 8, 3, 1]
+      
+      3 cases:
+      
+      r' == r -> width less
+      r' > r  -> width less
+      r' < r  -> width less, height less
+          i           j 
+      [5, 2, 4, 3, 9, 8, 4]
+      
+  **/
+  
+  public static int maxArea(int[] nums){
+    
+   /* set up left and right ptrs */
+   int i=0;
+   int j = nums.length-1;
+  
+   /* ret value */
+   int max_area = 0;
+    
+   /* keep shrinking window until ptrs meet */
+   while(i < j){
+     /* update max if possible */
+     int curr_area = (j-i) * Math.min(nums[i], nums[j]);
+     if(curr_area > max_area){
+      max_area = curr_area; 
+     }
+     
+     /* move smaller num ptr */
+     if(nums[i] < nums[j]) i++;
+     else j--;
+   }
+    
+   return max_area; 
+  }
+  
+  public static void main(String[] args) {
+    //int[] nums = {2, 500, 1, 501};
+    //int[] nums = {1};
+    //int[] nums = {};
+    int[] nums = {3, 2, 13, 4, 7, 2, 1, 9, 6};
+    System.out.println(maxArea(nums));
+  
+  }
+}
