@@ -1,0 +1,67 @@
+'''
+[1,2,3,4,5,6,7], k = 3
+
+[5,6,7,1,2,3,4]
+
+
+[1,2,3,4,5,6,7], k = 7
+
+
+
+
+ 0 1 2 3 4 5 6 7 8
+[1,2,3,4,5,6,7,8,9], k = 4
+
+0->4->8->3->7->2->6->1->5->0
+
+
+ 0 1 2
+[1,2,3]
+
+
+
+[ X Y V W X Y V W X Y V W X Y V W X Y V W ]
+
+
+'''
+
+
+
+
+def rotate(nums, k) -> None:
+        """
+        Do not return anything, modify nums in-place instead.
+        """
+        
+        
+        start_index = 0
+        count = len(nums)
+        while count != 0:       
+            current_index = start_index
+            temp = nums[start_index]
+            first = True
+            while start_index != current_index or first:
+                temp2 = nums[(current_index + k) % len(nums)]
+                nums[(current_index + k) % len(nums)] = temp
+                current_index = (current_index + k) % len(nums)
+                temp = temp2 
+                first = False
+                count -= 1
+            
+            
+            start_index += 1
+
+            
+# Arr = [1,2,3,4,5,6,7]
+
+# rotate(Arr, 3)
+# print(Arr)
+
+# rotate(Arr, 1)
+# print(Arr)
+
+# rotate(Arr, 0)
+# print(Arr)
+
+# rotate(Arr, len(Arr))
+# print(Arr)
