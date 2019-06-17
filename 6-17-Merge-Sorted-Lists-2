@@ -1,0 +1,56 @@
+def mergeTwoLists(self, l1: ListNode, l2: ListNode) -> ListNode:
+        # Trivial case: if one list is empty simply
+        # return the other list 
+        if l1 is None:
+            return l2
+        if l2 is None:
+            return l1
+            
+        # Initialize the result head and
+        # pointers to each input head node
+        result = ListNode(0)
+        ptr_1 = l1
+        ptr_2 = l2
+        
+        # Set result to the node that holds the lesser value
+        # and move the lesser value up
+        if l1.val <= l2.val:
+            result = l1
+            ptr_1 = ptr_1.next
+        else:
+            result = l2
+            ptr_2 = ptr_2.next 
+            
+        # Store a reference to the head of result
+        # so we can return it 
+        head = result 
+        
+        # Add each node to the result node 
+        # one-by-one until we reach the end of a list
+        while ptr_1 is not None or ptr_2 is not None:
+            # Check if either node is None
+            # to see if we reached the end of 
+            # a list
+            if ptr_1 is None or ptr_2 is None:
+                if ptr_1 is None:
+                    # Since we reached the end of
+                    # this list, we simply add the 
+                    # entire rest of the other list
+                    # by appending the current head node 
+                    # to the result
+                    result.next = ptr_2
+                else:
+                    result.next = ptr_1
+                return head
+            # Add the correct node to result
+            if ptr_1.val <= ptr_2.val:
+                result.next = ptr_1
+                ptr_1 = ptr_1.next
+                
+            else:
+                result.next = ptr_2
+                ptr_2 = ptr_2.next
+            
+            result = result.next 
+        
+        return head 
