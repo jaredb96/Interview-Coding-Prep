@@ -1,0 +1,36 @@
+def climb_stairs_recursive(n):
+    if n < 3:
+        return n
+    
+    else:
+        return climb_stairs_recursive(n - 1) + climb_stairs_recursive(n - 2)
+
+print(climb_stairs_recursive(5))
+
+
+
+```
+
+         25
+      24    23
+    23  22 22  21
+  22  
+
+
+``` 
+def climb_stairs(n):
+    if n < 3:
+        return n
+    else:
+        n_1 = 1
+        n_2 = 2
+        output = 0
+        for i in range(n - 2):
+            output = n_1 + n_2
+            n_1 = n_2
+            n_2 = output
+        return output
+
+
+idx               0 1 2 3 4 5 6
+climb_stairs(n)   0 1 2 3 5 8 13 
