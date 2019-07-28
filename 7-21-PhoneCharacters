@@ -1,0 +1,94 @@
+import java.io.*;
+import java.util.*;
+
+/*
+ * To execute Java, please define "static void main" on a class
+ * named Solution.
+ *
+ * If you need more classes, simply define them inline.
+ */
+
+/*
+2 - abc
+3 - def
+4 - ghi
+5 - jkl
+6 - mno
+7 - pqrs
+8 - tuv
+9 - wxyz
+
+'23' --> ad, ae, af, bd, be, bf, cd, ce, cf
+'54' ---> jg, jh, ji, kg, kh, ki, lg, lh, li
+
+
+
+  backtrack(List<List<Integer>> ret, List<Integer> curr, String str, int idx)
+  
+  backtrack(ret, [], '234')
+  backtrack(ret, [a], '34')    backtrack(ret, [b], '34') backtrack(ret, [c], '34')
+              |
+              |
+              |
+              v
+  a * {'d', 'e', 'f'} + b * {'d', 'e', 'f'} + c * {'d', 'e', 'f'}
+
+
+
+idx 0 1 2
+   '2 3 4'
+  
+backtrack(idx = 0) = a*backtrack(idx = 1) + b*backtrack(idx = 1) + c*backtrack(idx =1)
+  
+                    a*backtrack(d*backtrack(idx=2) + e*backtrack(idx=2) + f*backtrack(idx=2))                   
+*/
+class Solution {
+  
+  public static void backtrack(List<String> res, String digits, HashMap<Character, String> mappings, String curr, int idx){
+    /* base case */
+    if(idx >= digits.length()){
+      res.add(new String(curr)); 
+      return;
+    }
+    
+    /* loop over all possible chars or digits[idx] */
+    String possibleChars = mappings.get(digits.charAt(idx));
+    for(int i=0; i<possibleChars.length(); i++){
+      
+      /* add possible char, call subroutine on rest of string, then remove possible char */
+      curr += possibleChars.charAt(i); // append char
+      backtrack(res, digits, mappings, curr, idx+1);
+      curr = curr.substring(0, curr.length()-1); // remove end char
+      
+    }
+  }
+  
+  
+  public static List<String> digitsSweg(String digits){
+    /* return list */
+    List<String> res = new ArrayList<>();
+    if(digits.isEmpty()) return res;
+    
+    /* create mapping of numbers to chars they represent */
+    HashMap<Character, String> mappings = new HashMap<>(){{
+      put('2', "abc");
+      put('3', "def");
+      put('4', "ghi");
+      put('5', "jkl");
+      put('6', "mno");
+      put('7', "pqrs");
+      put('8', "tuv");
+      put('9', "wxyz");
+    }};
+    
+    backtrack(res, digits, mappings, "", 0);
+    
+    /* return result */
+    return res;
+  }
+  
+  
+  public static void main(String[] args) {
+    System.out.println(digitsSweg("423"));
+  }
+}
