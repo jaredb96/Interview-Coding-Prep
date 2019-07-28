@@ -1,0 +1,33 @@
+'''
+
+maxK(nums, k)
+
+example:
+
+nums = [4, 5, 1, 12, 3, 7, -1, 0], k = 3
+
+    12
+       1
+      5,4 
+
+
+
+output = [12, 5, 4]
+
+
+'''
+import heapq
+
+def max_k(nums, k):
+    result = []
+    for i in range(len(nums)):
+        if i < k:
+            heapq.heappush(result, nums[i])
+        else:
+            if nums[i] >= result[0]:
+                heapq.heappop(result)
+                heapq.heappush(result, nums[i])
+    return result
+
+
+print(max_k([4, 5, 1,12, 3, 7], 3))
