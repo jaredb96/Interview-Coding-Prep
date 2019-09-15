@@ -1,0 +1,40 @@
+'''
+
+[1,3,2,1,1,5,2], k = 2
+
+[1,2]
+
+
+'''
+import heapq
+def top_k_frequent_elements(nums: list, k: int) -> list:
+    frequencies_table = {}
+    
+    for i in range(len(nums)):
+        if nums[i] in frequencies_table.keys():
+            frequencies_table[nums[i]] += 1
+        else:
+            frequencies_table[nums[i]] = 1
+    
+    tuples = []
+    for key in frequencies_table.keys():
+        tuples.append((frequencies_table[key], key))
+    
+    max_elements = []
+    
+    for i in range(len(tuples)):
+        if len(max_elements) < k:
+            heapq.heappush(max_elements, tuples[i])
+        else:
+            # This function pushes the tuple first, 
+            # then pops the smallest element from the
+            # heap. Therefore, on each iteration, we are
+            # either updating the smallest element or not. 
+            heapq.heappushpop(max_elements, tuples[i])
+    
+    max_elements = sorted(max_elements, reverse=True)
+    max_elements = [elem[1] for elem in max_elements]
+    return max_elements
+
+
+print(str(top_k_frequent_elements([1,3,2,1,1,5,2], 2)))
