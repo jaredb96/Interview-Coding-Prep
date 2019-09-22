@@ -1,0 +1,45 @@
+class Solution:
+    def myAtoi(self, str: str) -> int:
+         # remove leading whitespace
+        str = str.lstrip()
+        # check for empty string
+        if not str:
+            return 0
+
+        INT_MAX, INT_MIN = pow(2, 31) - 1, -pow(2, 31)
+
+        firstIdx = 0
+        isNegative = False
+        if str[firstIdx] == '-':
+            isNegative = True
+            firstIdx += 1
+        elif str[firstIdx] == '+':
+            firstIdx += 1
+        if firstIdx > len(str) - 1 or str[firstIdx] == '.' or not str[firstIdx].isdigit():
+            return 0
+        else:
+
+            total = 0
+            # loop over all chars, add digits to total
+            for i in range(firstIdx, len(str)):
+                if str[i].isdigit():
+                    digit = int(str[i])
+                    # check for underflow
+                    if isNegative:
+                        if -total < (INT_MIN + digit) / 10:
+                            return INT_MIN
+                    # check for overflow
+                    else:
+                        if total > (INT_MAX - digit) / 10:
+                            return INT_MAX
+
+                    # add digit to total
+                    total = total * 10 + digit
+                else:
+                    break
+
+            # return total based on sign
+            if isNegative:
+                return -total
+            return total
+        
