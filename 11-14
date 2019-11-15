@@ -1,0 +1,52 @@
+'''
+[[1,2], [4,3], [2,2], [1,3]], k=2
+
+Node{
+ list point
+ int dist
+}
+
+'''
+import heapq
+import math
+
+
+class Node:
+    def __init__(self, point, dist):
+        self.point = point
+        self.dist = dist
+    def __cmp__(self, Node2):
+        return Node2.dist - self.dist
+    
+    def __lt__(self, Node2):
+        return self.dist > Node2.dist
+        
+        
+    def __gt__(self, Node2):
+        return self.dist < Node2.dist
+    
+
+def getDistanceFromOrigin(point):
+    return math.sqrt(point[0]**2 + point[1]**2)
+
+def k_closest(points, k):
+    heap = []
+    for point in points:
+        if len(heap) < k:
+            node = Node(point, getDistanceFromOrigin(point))
+            heapq.heappush(heap, node)
+        else:
+            if heap[0].dist > getDistanceFromOrigin(point):
+                heapq.heappop(heap)
+                node = Node(point, getDistanceFromOrigin(point))
+                heapq.heappush(heap, node)
+        
+    topK = []
+    for curr in heap:
+        topK.append(curr.point)
+        
+    return topK
+    
+points = [[1,2], [1,-2], [3,3], [1,-3]]
+#5, 5, 18, 10
+print(k_closest(points, 3))
