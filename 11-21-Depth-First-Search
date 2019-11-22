@@ -1,0 +1,30 @@
+class TreeNode:
+    def __init__(self, x):
+        self.left = None
+        self.right = None
+        self.val = x
+'''
+
+
+         1
+       4   3 
+      5 7 6 2
+
+
+
+'''
+def depth_first_search(self, root):
+    if not root:
+        return [] 
+    output = []
+    stack = []
+    stack.append(root)
+    
+    while stack:
+        if stack[-1].left:
+            stack.append(stack[-1].left)
+        if stack[-1].right:
+            stack.append(stack[-1].right)
+        output.append(stack.pop().val)
+    return output
+         
