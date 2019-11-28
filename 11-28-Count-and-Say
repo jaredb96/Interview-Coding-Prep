@@ -1,0 +1,52 @@
+'''1.     1
+2.     11
+3.     21
+4.     1211
+5.     111221
+            ^
+       312211
+
+
+6.     312211
+7.     13112221
+8.     1113213211
+9.     31131211131221
+'''
+
+
+
+def count_and_say(n):
+    # assume n >=1
+    
+    sequence = "1"
+    for i in range(n-1):
+        sequence = getNextNumber(sequence)
+    return sequence
+    
+    
+# given sequence of digits, return next number in 'count and say' sequence
+# 11
+  
+def getNextNumber(sequence):
+    next_sequence = ""
+    i = 0
+    while i < len(sequence):
+        curr_char = sequence[i]
+        freq = 0
+        
+        # get frequency of consecutive curr_char's 
+        while i < len(sequence) and sequence[i] == curr_char:
+            freq += 1
+            i += 1
+        
+        # add freq and num to return string
+        next_sequence += str(freq)
+        next_sequence += str(curr_char)
+    print(next_sequence)
+    print('--------------')
+    if len(next_sequence) < len(sequence):
+        print('################ GANG GANG BOOMER ALERT ###############')
+    return next_sequence
+
+
+count_and_say(30)
